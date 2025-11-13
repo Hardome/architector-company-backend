@@ -5,7 +5,6 @@ import { z } from 'zod';
 const router = Router();
 const prisma = new PrismaClient();
 
-// Валидация данных
 const projectSchema = z.object({
   title: z.string().min(1),
   description: z.string().min(1),

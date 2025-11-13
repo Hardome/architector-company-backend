@@ -4,23 +4,28 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:seed": "ts-node prisma/seed.ts"
   },
   "keywords": [],
   "author": "s.o.bedrin",
   "license": "ISC",
   "packageManager": "pnpm@10.20.0",
   "dependencies": {
-    "@prisma/client": "^6.19.0",
-    "bcryptjs": "^3.0.3",
-    "cors": "^2.8.5",
     "express": "^5.1.0",
+    "cors": "^2.8.5",
     "helmet": "^8.1.0",
-    "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.1",
-    "multer": "^2.0.2",
+    "@prisma/client": "^6.19.0",
     "prisma": "^6.19.0",
-    "zod": "^4.1.12"
+    "bcryptjs": "^3.0.3",
+    "jsonwebtoken": "^9.0.2",
+    "zod": "^4.1.12",
+    "multer": "^2.0.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
