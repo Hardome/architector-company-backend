@@ -22,7 +22,8 @@ app.use(cors({
 app.use(morgan('combined'));
 app.use(express.json());
 
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+app.use('/uploads/photos', express.static(path.join(__dirname, '../uploads/photos')));
+app.use('/uploads/videos', express.static(path.join(__dirname, '../uploads/videos')));
 
 app.use('/api/auth', require('./routes/auth').default);
 app.use('/api/projects', require('./routes/projects').default);
