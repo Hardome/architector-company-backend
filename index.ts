@@ -12,6 +12,7 @@ dotenv.config();
 const app = express();
 const prisma = new PrismaClient();
 const PORT = process.env.PORT || 5000;
+const UPLOAD_DIR = process.env.UPLOAD_DIR ? path.resolve(process.env.UPLOAD_DIR) : path.join(__dirname, '../uploads');
 
 // Middleware
 app.use(helmet());
@@ -22,8 +23,7 @@ app.use(cors({
 app.use(morgan('combined'));
 app.use(express.json());
 
-app.use('/uploads/photos', express.static(path.join(__dirname, '../uploads/photos')));
-app.use('/uploads/videos', express.static(path.join(__dirname, '../uploads/videos')));
+app.use('/uploads', express.static(UPLOAD_DIR));
 
 // app.use('/api/auth', require('./routes/auth').default);
 app.use('/api/projects', require('./routes/projects').default);
@@ -38,6 +38,8 @@ app.get('/api/health', (req, res) => {
 });
 
 app.listen(PORT, () => {
+  // eslint-disable-next-line no-console
   console.log(`Backend server running on port ${PORT}`);
-  console.log(`Uploads directory: ${path.join(__dirname, '../uploads')}`);
+  // eslint-disable-next-line no-console
+  console.log(`Uploads directory: ${UPLOAD_DIR}`);
 });

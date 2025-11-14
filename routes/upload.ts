@@ -7,8 +7,8 @@ import {PrismaClient} from '@prisma/client';
 const router = Router();
 const prisma = new PrismaClient();
 
-// ✅ ОБНОВЛЕНО: Путь к корневой папке uploads
-const UPLOADS_DIR = path.join(__dirname, '../../uploads');
+const uploadsEnvPath = process.env.UPLOAD_DIR ? path.resolve(process.env.UPLOAD_DIR) : undefined;
+const UPLOADS_DIR = uploadsEnvPath ?? path.join(__dirname, '../../uploads');
 
 // Создаем папку uploads если нет
 if (!fs.existsSync(UPLOADS_DIR)) {
