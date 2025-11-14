@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -22,7 +22,7 @@ model Project {
   price       Float
   area        Int
   rooms       Int
-  status      ProjectStatus @default(AVAILABLE)
+  status      ProjectStatus @default(ACTIVE)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   

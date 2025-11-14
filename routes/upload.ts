@@ -1,8 +1,8 @@
-import { Router } from 'express';
+import {Router} from 'express';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
-import { PrismaClient } from '@prisma/client';
+import {PrismaClient} from '@prisma/client';
 
 const router = Router();
 const prisma = new PrismaClient();
@@ -12,7 +12,7 @@ const UPLOADS_DIR = path.join(__dirname, '../../uploads');
 
 // Создаем папку uploads если нет
 if (!fs.existsSync(UPLOADS_DIR)) {
-  fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+  fs.mkdirSync(UPLOADS_DIR, {recursive: true});
   console.log('Created uploads directory:', UPLOADS_DIR);
 }
 
@@ -21,21 +21,23 @@ const storage = multer.diskStorage({
     cb(null, UPLOADS_DIR);
   },
   filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
     const ext = path.extname(file.originalname);
     const name = path.basename(file.originalname, ext);
     const filename = `image-${uniqueSuffix}${ext}`;
+
     cb(null, filename);
   }
 });
 
 const upload = multer({
-  storage: storage,
+  storage,
   limits: {
     fileSize: 10 * 1024 * 1024 // 10MB
   },
   fileFilter: (req, file, cb) => {
     const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+
     if (allowedTypes.includes(file.mimetype)) {
       cb(null, true);
     } else {
@@ -45,10 +47,10 @@ const upload = multer({
 });
 
 // POST /api/upload
-router.post('/', upload.single('image'), async (req, res) => {
+router.post('/', upload.single('image'), async(req, res) => {
   try {
     if (!req.file) {
-      return res.status(400).json({ error: 'No file uploaded' });
+      return res.status(400).json({error: 'No file uploaded'});
     }
 
     const image = await prisma.image.create({
@@ -69,39 +71,40 @@ router.post('/', upload.single('image'), async (req, res) => {
         size: image.size
       }
     });
-  } catch (error) {
+  } catch(error) {
     console.error('Upload error:', error);
-    res.status(500).json({ error: 'Upload failed' });
+    res.status(500).json({error: 'Upload failed'});
   }
 });
 
 // DELETE /api/upload/:id
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', async(req, res) => {
   try {
-    const { id } = req.params;
-    
+    const {id} = req.params;
+
     const image = await prisma.image.findUnique({
-      where: { id }
+      where: {id}
     });
 
     if (!image) {
-      return res.status(404).json({ error: 'Image not found' });
+      return res.status(404).json({error: 'Image not found'});
     }
 
     const filePath = path.join(UPLOADS_DIR, image.filename);
+
     if (fs.existsSync(filePath)) {
       fs.unlinkSync(filePath);
     }
 
     // Удаляем запись из базы
     await prisma.image.delete({
-      where: { id }
+      where: {id}
     });
 
-    res.json({ success: true, message: 'Image deleted' });
-  } catch (error) {
+    res.json({success: true, message: 'Image deleted'});
+  } catch(error) {
     console.error('Delete image error:', error);
-    res.status(500).json({ error: 'Delete failed' });
+    res.status(500).json({error: 'Delete failed'});
   }
 });
 
