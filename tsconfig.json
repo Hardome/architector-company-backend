@@ -9,7 +9,23 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "#config": ["config/index.ts"],
+      "#config/*": ["config/*"],
+      "#constants/*": ["constants/*"],
+      "#controllers": ["controllers/index.ts"],
+      "#db": ["db/index.ts"],
+      "#middlewares/*": ["middlewares/*"],
+      "#middlewares": ["middlewares/index.ts"],
+      "#routes": ["routes/index.ts"],
+      "#routes/*": ["routes/*"],
+      "#service/*": ["service/*"],
+      "#types/*": ["types/*"],
+      "#validators/*": ["validators/*"],
+      "#utils": ["utils/index.ts"]
+    }
   },
   "include": ["**/*.ts"],
   "exclude": ["node_modules", "dist"]

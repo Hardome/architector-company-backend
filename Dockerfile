@@ -9,13 +9,9 @@ WORKDIR /app
 
 # Копируем файлы зависимостей
 COPY package.json pnpm-lock.yaml* ./
-COPY prisma ./prisma/
 
 # Устанавливаем ВСЕ зависимости (нужны dev для сборки)
 RUN pnpm install
-
-# Генерируем Prisma Client
-RUN pnpm prisma generate
 
 # Копируем и собираем приложение
 COPY . .

@@ -1,76 +1,16 @@
-import {Router} from 'express';
-import {PrismaClient} from '@prisma/client';
-import {z} from 'zod';
+import {Router as createRouter} from 'express';
 
-const router = Router();
-const prisma = new PrismaClient();
+import {createSchema, deleteSchema, editSchema} from '#validators/projects';
+import {ProjectsController} from '#controllers';
+import {validateRequest, asyncHandler} from '#middlewares';
 
-const projectSchema = z.object({
-  title: z.string().min(1),
-  description: z.string().min(1),
-  price: z.number().positive(),
-  area: z.float32().positive(),
-  rooms: z.number().int()
-    .positive()
-});
+const router = createRouter();
 
-// GET /api/projects - все проекты
-router.get('/', async(req, res) => {
-  try {
-    const projects = await prisma.project.findMany({
-      include: {
-        images: true
-      }
-    });
-
-    res.json(projects);
-  } catch(error) {
-    res.status(500).json({error: 'Internal server error'});
-  }
-});
-
-// POST /api/projects - создать проект
-router.post('/', async(req, res) => {
-  try {
-    const validatedData = projectSchema.parse(req.body);
-
-    const project = await prisma.project.create({
-      data: validatedData,
-      include: {
-        images: true
-      }
-    });
-
-    res.status(201).json(project);
-  } catch(error) {
-    if (error instanceof z.ZodError) {
-      return res.status(400).json({errors: error.issues});
-    }
-    res.status(500).json({error: 'Internal server error'});
-  }
-});
-
-// PUT /api/projects/:id - обновить проект
-router.put('/:id', async(req, res) => {
-  try {
-    const {id} = req.params;
-    const validatedData = projectSchema.parse(req.body);
-
-    const project = await prisma.project.update({
-      where: {id},
-      data: validatedData,
-      include: {
-        images: true
-      }
-    });
-
-    res.json(project);
-  } catch(error) {
-    if (error instanceof z.ZodError) {
-      return res.status(400).json({errors: error.issues});
-    }
-    res.status(500).json({error: 'Internal server error'});
-  }
-});
+// router.get('/', asyncHandler(listProjects));
+// router.post('/', validateRequest(projectSchema), asyncHandler(createProject));
+// router.put('/:id', validateRequest(projectSchema), asyncHandler(updateProject));
+router.post('/', validateRequest(createSchema), asyncHandler(ProjectsController.create));
+router.patch('/', validateRequest(editSchema), asyncHandler(ProjectsController.update));
+router.delete('/', validateRequest(deleteSchema), asyncHandler(ProjectsController.delete));
 
 export default router;
