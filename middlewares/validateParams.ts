@@ -1,7 +1,7 @@
 import {RequestHandler} from 'express';
 import {ZodObject} from 'zod';
 
-import {HttpStatus} from '#constants/httpStatus';
+import {HttpStatus} from '../constants/httpStatus';
 
 const validateParams = (schema: ZodObject<any>): RequestHandler => (req, res, next) => {
   const result = schema.safeParse(req.params);
@@ -12,11 +12,9 @@ const validateParams = (schema: ZodObject<any>): RequestHandler => (req, res, ne
     return;
   }
 
-  req.params = result.data;
+  req.params = result.data as typeof req.params;
 
   next();
 };
 
 export default validateParams;
-
-

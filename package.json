@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.ts",
     "build": "tsc",
+    "build:watch": "tsc --watch",
     "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "dev:watch": "nodemon --exec ts-node src/index.ts",
     "reinstall": "rm -rf node_modules && rm pnpm-lock.yaml && pnpm install",
-    "reinstall:windows": "rmdir /s /q node_modules && del pnpm-lock.yaml && pnpm install",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix"
   },
@@ -41,7 +42,6 @@
     "@typescript-eslint/parser": "^8.46.4",
     "eslint": "^9.39.1",
     "globals": "^16.5.0",
-    "nodemon": "^3.1.11",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }

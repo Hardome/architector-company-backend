@@ -1,6 +1,6 @@
 import {RequestHandler} from 'express';
 import {ZodObject, ZodArray} from 'zod';
-import {HttpStatus} from '#constants/httpStatus';
+import {HttpStatus} from '../constants/httpStatus';
 
 const validateRequest = (schema: ZodObject | ZodArray): RequestHandler => (req, res, next) => {
   const result = schema.safeParse(req.body);

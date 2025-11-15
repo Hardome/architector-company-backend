@@ -1,12 +1,12 @@
 import {Request, Response, NextFunction} from 'express';
-import {AppError} from '#utils';
-import {HttpStatus} from '#constants/httpStatus';
+import {AppError} from '../utils';
+import {HttpStatus} from '../constants/httpStatus';
 
 const errorHandler = (
   error: Error,
   req: Request,
   res: Response,
-  next: NextFunction
+  _next: NextFunction
 ) => {
   let appError = error;
 

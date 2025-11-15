@@ -1,6 +1,6 @@
 import {Response} from 'express';
 
-import {HttpStatus} from '#constants/httpStatus';
+import {HttpStatus} from '../constants/httpStatus';
 
 export abstract class BaseController {
   protected success(

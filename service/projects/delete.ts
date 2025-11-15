@@ -1,7 +1,7 @@
-import {AppError} from '#utils';
-import {HttpStatus} from '#constants/httpStatus';
-import type {ProjectDeleteInput} from '#validators/projects';
-import type {Project} from '#types/entities/project';
+import {AppError} from '../../utils';
+import {HttpStatus} from '../../constants/httpStatus';
+import type {ProjectDeleteInput} from '../../validators/projects';
+import type {Project} from '../../types/entities/project';
 
 export const deleteProjects = async(
   ids: ProjectDeleteInput[],

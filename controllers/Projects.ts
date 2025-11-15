@@ -1,7 +1,7 @@
 import {Request, Response} from 'express';
 
 import {BaseController} from './BaseController';
-import {create, deleteProjects, update} from '#service/projects';
+import {create, deleteProjects, update} from '../service/projects';
 
 class ProjectsController extends BaseController {
   async create(req: Request, res: Response): Promise<void> {

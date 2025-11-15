@@ -1,8 +1,8 @@
 import {Request, Response} from 'express';
 
 import {BaseController} from './BaseController';
-import {createImage, deleteImage as deleteImageService} from '#service/media';
-import type {ImageUploadBody, ImageIdParams} from '#validators/media';
+import {createImage, deleteImage as deleteImageService} from '../service/media';
+import type {ImageUploadBody, ImageIdParams} from '../validators/media';
 
 class MediaController extends BaseController {
   async upload(req: Request, res: Response): Promise<void> {

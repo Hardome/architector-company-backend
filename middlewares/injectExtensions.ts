@@ -2,9 +2,9 @@ import {Request, Response, NextFunction} from 'express';
 import multer from 'multer';
 import path from 'path';
 
-import db from '#db';
-import {config} from '#config';
-import {MAX_FILE_SIZE_BYTES, RANDOM_SUFFIX_LIMIT} from '#constants/upload';
+import db from '../db';
+import {config} from '../config';
+import {MAX_FILE_SIZE_BYTES, RANDOM_SUFFIX_LIMIT} from '../constants/upload';
 
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => {
@@ -35,7 +35,7 @@ const upload = multer({
   }
 });
 
-const injectExtensions = (req: Request, res: Response, next: NextFunction) => {
+const injectExtensions = (req: Request, _res: Response, next: NextFunction) => {
   req.ext = {
     db,
     logger: console,

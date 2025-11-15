@@ -1,7 +1,7 @@
-import {AppError} from '#utils';
-import {HttpStatus} from '#constants/httpStatus';
-import type {ImageUploadBody} from '#validators/media';
-import type {Image} from '#types/entities/image';
+import {AppError} from '../../utils';
+import {HttpStatus} from '../../constants/httpStatus';
+import type {ImageUploadBody} from '../../validators/media';
+import type {Image} from '../../types/entities/image';
 
 export const createImage = async(
   body: ImageUploadBody,

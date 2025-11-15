@@ -1,10 +1,10 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-import {config} from '#config';
-import {AppError} from '#utils';
-import {HttpStatus} from '#constants/httpStatus';
-import type {Image} from '#types/entities/image';
+import {config} from '../../config';
+import {AppError} from '../../utils';
+import {HttpStatus} from '../../constants/httpStatus';
+import type {Image} from '../../types/entities/image';
 
 export const deleteImage = async(id: string, ext: Express.Request['ext']): Promise<void> => {
   const image = await ext.db<Image>('Image')
@@ -31,5 +31,3 @@ export const deleteImage = async(id: string, ext: Express.Request['ext']): Promi
     .where({id})
     .delete();
 };
-
-

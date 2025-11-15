@@ -5,9 +5,9 @@ import morgan from 'morgan';
 // import compression from 'compression';
 // import rateLimit from 'express-rate-limit';
 
-import {config} from '#config';
-import {projects, media} from '#routes';
-import {errorHandler, injectExtensions} from '#middlewares';
+import {config} from './config';
+import {projects, media} from './routes';
+import {errorHandler, injectExtensions} from './middlewares';
 
 const app = express();
 
@@ -45,7 +45,7 @@ app.use('/api/media', media);
 
 app.use(errorHandler);
 
-app.get('/api/health', (req, res) => {
+app.get('/api/health', (_req, res) => {
   res.json({
     status: 'OK',
     timestamp: new Date().toISOString(),
