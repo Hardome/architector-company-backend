@@ -16,4 +16,3 @@ export const imageIdSchema = z.object({
 
 export type ImageIdParams = z.infer<typeof imageIdSchema>;
 
-

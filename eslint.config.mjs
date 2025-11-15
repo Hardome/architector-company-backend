@@ -16,7 +16,7 @@ const compat = new FlatCompat({
     allConfig: js.configs.all
 });
 
-export default defineConfig([globalIgnores(["**/tests", "**/global.test.d.ts", "**/build"]), {
+export default defineConfig([globalIgnores(["**/tests", "**/global.test.d.ts", "**/dist", "tsconfig.json"]), {
     files: ["**/*.ts"],
     extends: compat.extends("plugin:@typescript-eslint/eslint-recommended"),
 
@@ -174,13 +174,7 @@ export default defineConfig([globalIgnores(["**/tests", "**/global.test.d.ts", "
             beforeColon: false,
         }],
 
-        "keyword-spacing": [2, {
-            overrides: {
-                catch: {
-                    after: false,
-                },
-            },
-        }],
+        "keyword-spacing": [2],
 
         "max-nested-callbacks": [2, 3],
         "new-cap": 2,
